@@ -13,17 +13,16 @@ import static org.junit.Assert.*;
 @RunWith(MockitoJUnitRunner.class)
 public class CatTest {
 
+    @Mock
+    Feline feline;
+
     @Test
     public void testGetSoundReturnCatSound() {
-        Feline feline = new Feline();
         Cat cat = new Cat(feline);
         String expectedSound = "Мяу";
         String actualSound = cat.getSound();
         assertEquals(expectedSound, actualSound);
     }
-
-    @Mock
-    Feline feline;
 
     @Test
     public void testGetFoodReturnSomeFood() throws Exception {

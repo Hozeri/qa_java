@@ -13,10 +13,13 @@ import static org.junit.Assert.*;
 @RunWith(MockitoJUnitRunner.class)
 public class LionNotParameterizedTest {
 
+    @Mock
+    Feline feline;
+
     @Test
     public void testLionConstructorSexNotMaleAndFemaleGetException() {
         try {
-            Lion lion = new Lion("Test");
+            Lion lion = new Lion("Test", feline);
         } catch (Exception e) {
             assertEquals("Используйте допустимые значения пола животного - самей или самка", e.getMessage());
         }
@@ -24,17 +27,14 @@ public class LionNotParameterizedTest {
 
     @Test
     public void testDoesHaveManeReturnFalse() throws Exception {
-        Lion lion = new Lion("Самка");
+        Lion lion = new Lion("Самка", feline);
         boolean actual = lion.doesHaveMane();
         assertFalse(actual);
     }
 
-    @Mock
-    Feline feline;
-
     @Test
-    public void testGetKittensReturnSomeKittens() {
-        Lion lion = new Lion(feline);
+    public void testGetKittensReturnSomeKittens() throws Exception {
+        Lion lion = new Lion("Самец", feline);
         Mockito.when(feline.getKittens()).thenReturn(2);
         int expectedKittens = 2;
         int actualKittens = lion.getKittens();
@@ -43,9 +43,9 @@ public class LionNotParameterizedTest {
 
     @Test
     public void testGetFoodReturnSomeFood() throws Exception {
-        Lion lion = new Lion(feline);
-        Mockito.when(feline.getFood(Mockito.anyString())).thenReturn(List.of("Еда", "Еда", "Еда"));
-        List<String> expectedFood = List.of("Еда", "Еда", "Еда");
+        Lion lion = new Lion("Самка", feline);
+        Mockito.when(feline.getFood(Mockito.anyString())).thenReturn(List.of("Животные", "Птицы", "Рыба"));
+        List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
         List<String> actualFood = lion.getFood();
         assertEquals(expectedFood, actualFood);
     }
