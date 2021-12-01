@@ -1,3 +1,9 @@
+# .idea dir
+.idea
+
+# target dir
+target
+
 # Compiled class file
 *.class
 
